@@ -1,9 +1,8 @@
 # NTE Auto Fishing — Hướng dẫn sử dụng
 
-Tool tự động câu cá cho game **NTE (Neverness to Everness)**. Bạn chỉ cần đứng
-tại điểm câu và bật tool — mọi thứ còn lại tool tự làm: thả cần, phát hiện cá
-cắn, giật cần, tự căn chỉnh kéo cá, nhận cá và lặp lại liên tục.
-Bot đọc màn hình (OpenCV + mss) và giả lập phím (SendInput scancode qua)
+Tool tự động câu cá cho game **NTE (Neverness to Everness)**. 
+- Bạn chỉ cần đứng tại điểm câu và bật tool — mọi thứ còn lại tool tự làm: thả cần, phát hiện cá cắn, giật cần, tự căn chỉnh kéo cá, nhận cá và lặp lại liên tục. 
+- Bot đọc màn hình (OpenCV + mss) và giả lập phím (SendInput scancode qua)
 ---
 
 ## 1. Tool làm được gì?
