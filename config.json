@@ -1,0 +1,61 @@
+{
+  "window_titles": ["NTE", "Neverness", "HTGame"],
+  "require_game_foreground": true,
+  "keys": { "cast": "f", "pull_left": "a", "pull_right": "d" },
+  "hotkeys": { "toggle": "f8", "quit": "f12" },
+  "invert_pull": false,
+  "click_close_pos": [0.135, 0.5],
+  "timings": {
+    "scan_interval": 0.05,
+    "fight_interval": 0.016,
+    "cast_hold": 0.08,
+    "cast_cooldown": 2.5,
+    "cast_fail_window": 8.0,
+    "max_cast_fails": 4,
+    "bite_timeout": 90.0,
+    "hook_grace": 14.0,
+    "fight_end_grace": 1.8,
+    "fight_hard_cap": 180.0,
+    "result_close_delay": 1.0,
+    "after_close_delay": 1.5,
+    "detect_keep_alive": 0.7
+  },
+  "steering": {
+    "min_hold": 0.13,
+    "engage_frac": 0.18,
+    "release_frac": 0.08,
+    "engage_min_px": 10,
+    "release_min_px": 5,
+    "green_lookahead": 0.10,
+    "marker_brake": 0.12,
+    "vel_smooth": 0.7
+  },
+  "rois": {
+    "bite_f_ring": [0.9036, 0.8454, 0.0573, 0.1019],
+    "idle_e_icon": [0.8365, 0.8611, 0.0375, 0.0667],
+    "fight_left_icon": [0.2563, 0.0333, 0.0438, 0.0778],
+    "fight_right_icon": [0.7198, 0.0333, 0.0438, 0.0778],
+    "fight_bar": [0.3010, 0.0556, 0.4135, 0.0315],
+    "result_circle": [0.3854, 0.2519, 0.2271, 0.4037],
+    "result_capsule": [0.35, 0.0889, 0.30, 0.0611]
+  },
+  "hsv": {
+    "bite_blue": [[100, 120, 150], [130, 255, 255]],
+    "gold_ring": [[15, 110, 140], [40, 255, 255]],
+    "cyan_ring": [[82, 110, 150], [102, 255, 255]],
+    "green_zone": [[65, 120, 150], [95, 255, 255]],
+    "yellow_marker": [[18, 70, 200], [45, 255, 255]],
+    "white": [[0, 0, 215], [179, 45, 255]],
+    "dark": [[0, 0, 0], [179, 255, 90]]
+  },
+  "thresholds": {
+    "bite_blue_px": 450,
+    "idle_white_px": 220,
+    "fight_ring_px": 120,
+    "green_min_width_px": 14,
+    "green_col_frac": 0.30,
+    "marker_min_px": 6,
+    "result_white_px": 12000,
+    "capsule_dark_frac": 0.5
+  }
+}
