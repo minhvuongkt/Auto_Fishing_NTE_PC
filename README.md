@@ -10,9 +10,9 @@ Bot đọc màn hình (OpenCV + mss) và giả lập phím (SendInput scancode q
 
 | Chức năng | Mô tả |
 |---|---|
-| 🪝 Tự thả cần | Tự bấm F khi đang ở trạng thái sẵn sàng câu |
-| 👀 Tự phát hiện cá cắn | Nhận diện vòng sáng xanh quanh nút F và giật cần ngay lập tức (nhanh hơn người) |
-| 🎮 Tự chơi minigame kéo cá | Điều khiển A/D đưa vạch vàng bám theo vùng xanh, có tính trước quán tính của vạch nên không bị vọt lố |
+| Tự thả cần | Tự bấm F khi đang ở trạng thái sẵn sàng câu |
+| Tự phát hiện cá cắn | Nhận diện vòng sáng xanh quanh nút F và giật cần ngay lập tức (nhanh hơn người) |
+| Tự chơi minigame kéo cá | Điều khiển A/D đưa vạch vàng bám theo vùng xanh, có tính trước quán tính của vạch nên không bị vọt lố |
 | Tự nhận cá | Tự bấm đóng màn kết quả rồi thả cần tiếp |
 | Lặp vô hạn | Chu trình chạy liên tục cho đến khi bạn dừng |
 | Thống kê | Đếm số cá bắt được, số lần kéo, thời gian chạy — hiện khi tạm dừng/thoát |
@@ -66,7 +66,7 @@ Ngoài game:
 1. Vào game, đi đến điểm câu cá, vào chế độ câu (thấy nút **F** hình móc câu ở góc phải dưới như khi câu tay).
 2. Chạy tool. Tool khởi động ở trạng thái **tạm dừng** — chưa làm gì cả.
 3. Click chuột vào cửa sổ game cho game nổi lên trước, rồi bấm **F8**. Nghe tiếng beep cao = tool bắt đầu chạy.
-4. Ngồi xem hoặc đi làm việc khác trên... điện thoại 😄 (không alt-tab — tool cần cửa sổ game mở phía trước).
+4. Ngồi xem hoặc đi làm việc khác... (không alt-tab — tool cần cửa sổ game mở phía trước).
 5. Muốn nghỉ: bấm **F8** (beep trầm = đã dừng, tool nhả hết phím). Muốn tắt hẳn: **F12**.
 
 ### Đọc cửa sổ log
