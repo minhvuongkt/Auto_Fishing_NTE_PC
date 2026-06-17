@@ -1,8 +1,9 @@
 # NTE Auto Fishing — Hướng dẫn sử dụng
 
-Tool tự động câu cá cho game **NTE (Neverness to Everness)**. 
-- Bạn chỉ cần đứng tại điểm câu và bật tool — mọi thứ còn lại tool tự làm: thả cần, phát hiện cá cắn, giật cần, tự căn chỉnh kéo cá, nhận cá và lặp lại liên tục. 
-- Bot đọc màn hình (OpenCV + mss) và giả lập phím (SendInput scancode qua)
+Tool tự động câu cá cho game **NTE (Neverness to Everness)**. Bạn chỉ cần đứng
+tại điểm câu và bật tool — mọi thứ còn lại tool tự làm: thả cần, phát hiện cá
+cắn, giật cần, chơi minigame kéo cá, nhận cá và lặp lại liên tục.
+Bot đọc màn hình (OpenCV + mss) và giả lập phím (SendInput scancode qua)
 ---
 
 ## 1. Tool làm được gì?
@@ -16,10 +17,19 @@ Tool tự động câu cá cho game **NTE (Neverness to Everness)**.
 | Lặp vô hạn | Chu trình chạy liên tục cho đến khi bạn dừng |
 | Thống kê | Đếm số cá bắt được, số lần kéo, thời gian chạy — hiện khi tạm dừng/thoát |
 | Tự bảo vệ | Tự tạm dừng + kêu **beep** khi nghi hết mồi hoặc chờ lâu không có cá; tự nhả hết phím khi tạm dừng |
-| 🪟 An toàn cửa sổ | Chỉ bấm phím khi cửa sổ game đang mở phía trước — alt-tab ra ngoài là tool tự ngưng bấm |
+| An toàn cửa sổ | Chỉ bấm phím khi cửa sổ game đang mở phía trước — alt-tab ra ngoài là tool tự ngưng bấm |
+| Tự bắt đầu câu | Bạn tự bấm F vào điểm câu; thấy bảng chuẩn bị là tool tự bấm "Bắt Đầu Câu Cá" (tool không tự bấm F vào điểm câu) |
+| Tự bán cá | Cứ đủ N con (mặc định 20) tự mở Chợ Cá (Q) → khoang cá → BÁN NHANH → Xác nhận → câu tiếp |
+| 🪱 Tự đổi mồi | Hết mồi đang dùng thì tự mở hộp thoại đổi mồi (E), **vuốt ngang xem hết các ô**, đọc số lượng từng ô và đổi sang loại đầu tiên còn hàng |
+| Tự mua mồi | Theo dõi số mồi còn lại, trước khi thả cần so với số cá cần câu tới lần bán kế — thiếu thì tự mở shop (R), chọn loại mồi đã cấu hình, chỉnh số lượng và Mua (tự giảm nếu không đủ sò) |
+| Thao tác giống người | Phản ứng nhanh chậm ngẫu nhiên, di chuột theo đường cong, thi thoảng "ngó lơ" vài giây, tự nghỉ khi hết phiên |
 
-**Tool KHÔNG có các chức năng:** tự mua mồi, tự bán cá, tự di chuyển đến điểm
-câu, chạy ngầm khi game thu nhỏ. Bạn cần chuẩn bị đủ mồi trước khi treo.
+**Tool KHÔNG có các chức năng:** tự di chuyển đến điểm câu, tự bấm F vào điểm
+câu (bạn tự vào, tool nhắc trong log), chạy ngầm khi game thu nhỏ.
+
+> Lưu ý về **tự bán cá**: nút BÁN NHANH của game bán **toàn bộ khoang cá**,
+> kể cả vật phẩm hiếm câu được. Nếu muốn giữ cá lại, tắt bằng
+> `"auto_sell": { "enabled": false }` trong config.
 
 ---
 
@@ -82,8 +92,16 @@ Ngoài game:
 |---|---|
 | `Cá thoát / đứt dây — thả lại` | Sẩy con đó, tool tự câu tiếp — bình thường |
 | `Chờ lâu không có cá cắn — thu cần, thả lại` | Quá 90 giây không cá cắn, tool tự làm mới |
-| `[!] Tạm dừng: thả cần không có tác dụng...` | **Nhiều khả năng hết mồi** — mua thêm mồi rồi bấm F8 chạy tiếp |
+| `? Nghi hết mồi — mở hộp thoại đổi mồi (E)...` | Tool đang tự kiểm tra và đổi loại mồi còn hàng |
+| `Số mồi hiện tại: N (cần M cho chu kỳ bán).` | Tool vừa đọc số mồi còn lại bằng OCR ở hộp thoại E |
+| `Mồi còn N, cần M cho chu kỳ bán — đi mua mồi.` | Số mồi sắp thiếu, tool tự vào shop R mua trước |
+| `$ Đã mua N mồi.` | Mua mồi xong, quay lại câu |
+| `$ Đã bán nhanh toàn bộ khoang cá.` | Bán cá định kỳ xong, câu tiếp |
+| `(~) Nghỉ ngẫu nhiên Ns cho giống người...` | Nghỉ giả lập người chơi, tự chạy lại sau N giây |
+| `[!] Tạm dừng: đã HẾT SẠCH mọi loại mồi...` | Chỉ xảy ra khi tắt tự mua mồi — mua ở shop (phím R) rồi bấm F8 |
+| `[!] Tạm dừng: không mua được mồi...` | Hết sò hoặc tọa độ shop lệch (chạy `calibrate.py shot` để kiểm tra) — xử lý rồi bấm F8 |
 | `[!] Tạm dừng: 3 lần liên tiếp không có cá cắn` | Điểm câu có vấn đề (sai mồi/sai chỗ) — kiểm tra rồi F8 |
+| `[!] Tạm dừng: hết thời lượng phiên...` | Hết "ca câu" ngẫu nhiên (40–75 phút) — nghỉ chút rồi F8 chạy tiếp |
 
 ---
 
@@ -95,11 +113,19 @@ Mở `config.json` bằng Notepad, chỉ cần quan tâm mấy dòng này:
 |---|---|
 | `"invert_pull": false` | Nếu thấy tool kéo **ngược chiều** (vạch vàng cứ chạy xa vùng xanh) → đổi thành `true` |
 | `"window_titles": [...]` | Nếu tool không bấm phím dù game đang mở → tên cửa sổ game không khớp, thêm tên đúng vào (xem mục 6) |
-| `"hotkeys"` | Đổi phím F8/F12 nếu trùng phím khác bạn dùng |
+| `"hotkeys"` | Đổi phím F10/F12 nếu trùng phím khác bạn dùng |
 | `"bite_timeout": 90.0` | Thời gian tối đa chờ cá cắn (giây) trước khi thu cần thả lại |
+| `"flows" → "auto_sell" → "every_catches_min/max"` | Bán cá sau ngẫu nhiên 14–28 con (mỗi lần bán xong bốc mốc mới, không cố định); `"enabled": false` để tắt hẳn |
+| `"flows" → "auto_switch_bait"` | `false` nếu muốn tự quản lý mồi |
+| `"flows" → "auto_buy_bait" → "enabled"` | `false` nếu không muốn tool tự mua mồi ở shop (R) |
+| `"flows" → "auto_buy_bait" → "shop_item_index"` | Ô mồi muốn mua trong shop, đếm **từ 1, trái → phải rồi xuống hàng** (mỗi hàng 3 ô). Mặc định `1` = Mồi Câu Đa Năng |
+| `"flows" → "auto_buy_bait" → "buy_amount"` | Số mồi mua mỗi lần. Đặt `0` = tự tính theo auto sell (mua đủ câu tới lần bán kế + 20% dư); không đủ sò thì tool tự giảm số lượng |
+| `"flows" → "auto_buy_bait" → "assume_stock"` | Số mồi bạn **đang có lúc bật tool**. Đặt `0` (mặc định) = tool tự mở hộp thoại mồi (E) trước khi câu và **đọc đúng số mồi còn lại bằng OCR** rồi trừ dần theo mỗi lần thả cần, cạn thì mở E đọc lại. Chỉ cần khai số nếu muốn bỏ qua bước đọc OCR đầu tiên |
+| `"flows" → "auto_enter_fishing"` | `false` nếu không muốn tool tự bấm nút "Bắt Đầu Câu Cá" khi bảng chuẩn bị đang mở |
+| `"humanize" → "enabled"` | `false` để tắt toàn bộ cơ chế giống người (phản ứng sẽ nhanh máy móc — không khuyến khích) |
+| `"humanize" → "session_minutes_min/max"` | Khoảng thời lượng phiên; hết giờ tool tự tạm dừng để nghỉ |
 
-Sửa xong lưu file rồi khởi động lại tool. **Không cần build lại exe** — exe đọc
-config mỗi lần mở.
+Sửa xong lưu file rồi khởi động lại tool.
 
 ---
 
@@ -137,9 +163,31 @@ Có — mọi vùng nhận diện tự co giãn theo tỉ lệ. Nhưng 1920×108
 đã được kiểm chứng kỹ nhất; nếu dùng độ phân giải khác, nên chạy probe (mục 6)
 kiểm tra một lượt trước khi treo.
 
-**Hết mồi thì sao?**
-Tool tự phát hiện (thả cần không có tác dụng), kêu beep và tạm dừng. Mua thêm
-mồi ở tiệm cá rồi bấm F8 chạy tiếp.
+**Hết mồi thì sao? Tool kiểm tra mồi trước khi câu thế nào?**
+Ngay sau khi bấm "Bắt Đầu Câu Cá" để vào chế độ câu (và mỗi lần bấm F8 chạy
+tiếp), **trước lần thả cần đầu tiên** tool mở nhanh hộp thoại đổi mồi (E) và
+**đọc đúng con số mồi còn lại bằng OCR** (ví dụ thấy "43" là biết còn 43 cái).
+Số này trừ dần mỗi lần thả cần và so với số cá còn phải câu tới lần bán kế:
+**thiếu là tự vào shop (R) mua trước**, cạn thì mở E đọc lại. Thêm 2 lớp dự
+phòng: hết mồi đang gắn → đổi sang loại còn hàng (E); hết sạch mọi loại → mua ở
+shop (R). Chỉ khi mua cũng thất bại (hết sò chẳng hạn) tool mới beep và tạm dừng.
+
+> OCR dùng thư viện RapidOCR chạy offline (đa ngôn ngữ, không gửi gì lên mạng).
+> Nếu chạy từ source mà chưa cài, gõ `pip install -r requirements.txt`. Bản
+> đóng gói `.exe` đã nhúng sẵn — không cần cài gì thêm.
+
+**Mồi tool mua có đúng loại tôi muốn không?**
+Tool mua theo `shop_item_index` — vị trí ô trong shop R, đếm từ 1, trái sang
+phải rồi xuống hàng dưới (mỗi hàng 3 ô). Mặc định là ô 1 (Mồi Câu Đa Năng, 5
+sò/cái, dùng được mọi vùng nước). Muốn loại khác thì đổi số thứ tự trong config.
+
+**Cơ chế "giống người" hoạt động thế nào, có tắt được không?**
+Tool tự thêm: độ trễ phản ứng ngẫu nhiên ~0.2–0.4s khi giật cần (thỉnh thoảng
+chậm hẳn như người lơ đãng), thời gian giữ phím/khoảng nghỉ dao động, di chuột
+theo đường cong có khi vọt quá đích, điểm click lệch quanh tâm nút, nghỉ vặt
+vài giây ngẫu nhiên giữa các con cá, phản ứng chậm dần theo thời gian (mệt mỏi),
+và mỗi phiên chỉ chạy 40–75 phút rồi tự nghỉ. Tắt bằng `"humanize": { "enabled": false }`
+— nhưng để bật sẽ an toàn hơn trước anti-cheat hành vi.
 
 **Cá hiếm tool có bắt được không?**
 Được — cá hiếm có vùng xanh hẹp hơn và chạy nhanh hơn, tool được thiết kế bám

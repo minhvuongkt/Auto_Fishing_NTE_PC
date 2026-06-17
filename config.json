@@ -1,52 +1,436 @@
 {
-  "window_titles": ["NTE", "Neverness", "HTGame"],
+  "window_titles": [
+    "NTE",
+    "Neverness",
+    "HTGame"
+  ],
   "require_game_foreground": true,
-  "keys": { "cast": "f", "pull_left": "a", "pull_right": "d" },
-  "hotkeys": { "toggle": "f8", "quit": "f12" },
+  "keys": {
+    "cast": "f",
+    "pull_left": "a",
+    "pull_right": "d",
+    "open_shop": "q",
+    "open_bait_shop": "r",
+    "change_bait": "e"
+  },
+  "hotkeys": {
+    "toggle": "f10",
+    "quit": "f12"
+  },
   "invert_pull": false,
-  "click_close_pos": [0.135, 0.5],
+  "click_close_pos": [
+    0.135,
+    0.5
+  ],
+  "flows": {
+    "never_pause": true,
+    "auto_enter_fishing": true,
+    "auto_switch_bait": true,
+    "auto_sell": {
+      "enabled": true,
+      "every_catches_min": 30,
+      "every_catches_max": 50
+    },
+    "auto_buy_bait": {
+      "enabled": true,
+      "shop_item_index": 1,
+      "buy_amount": 0,
+      "assume_stock": 0,
+      "max_reasonable_stock": 999
+    }
+  },
+  "buttons": {
+    "prepare_start": [
+      0.8401,
+      0.8713
+    ],
+    "master_tab_storage": [
+      0.0729,
+      0.3843
+    ],
+    "storage_quick_sell": [
+      0.5531,
+      0.8981
+    ],
+    "dialog_left": [
+      0.3917,
+      0.6546
+    ],
+    "dialog_right": [
+      0.6094,
+      0.6546
+    ],
+    "master_close": [
+      0.9547,
+      0.0583
+    ]
+  },
+  "bait_shop": {
+    "grid_origin": [
+      0.0773,
+      0.2287
+    ],
+    "grid_dx": 0.1080,
+    "grid_dy": 0.2245,
+    "grid_cols": 3,
+    "grid_rows_visible": 3,
+    "minus_btn": [
+      0.7276,
+      0.8815
+    ],
+    "plus_btn": [
+      0.9238,
+      0.8815
+    ],
+    "buy_btn": [
+      0.8385,
+      0.9537
+    ],
+    "close_btn": [
+      0.9547,
+      0.0583
+    ],
+    "reward_close": [
+      0.50,
+      0.86
+    ]
+  },
+  "bait_dialog": {
+    "slot_centers_x": [
+      0.3703,
+      0.4328,
+      0.4948,
+      0.5568,
+      0.6193
+    ],
+    "slot_w": 0.0573,
+    "slot_top": 0.4444,
+    "slot_h": 0.1056,
+    "badge_w": 0.0469,
+    "badge_y": 0.5509,
+    "badge_h": 0.0222,
+    "badge_pad_x": 0.004,
+    "click_y": 0.4981,
+    "scroll": {
+      "from_x": 0.6193,
+      "to_x": 0.3703,
+      "y": 0.4981,
+      "steps": 18,
+      "max_pages": 6
+    }
+  },
   "timings": {
     "scan_interval": 0.05,
     "fight_interval": 0.016,
     "cast_hold": 0.08,
-    "cast_cooldown": 2.5,
-    "cast_fail_window": 8.0,
-    "max_cast_fails": 4,
+    "cast_cooldown": 1.2,
+    "cast_fail_window": 6.0,
+    "max_cast_fails": 3,
     "bite_timeout": 90.0,
     "hook_grace": 14.0,
     "fight_end_grace": 1.8,
     "fight_hard_cap": 180.0,
-    "result_close_delay": 1.0,
-    "after_close_delay": 1.5,
-    "detect_keep_alive": 0.7
+    "result_close_delay": 0.4,
+    "after_close_delay": 0.5,
+    "detect_keep_alive": 0.7,
+    "idle_confirm_secs": 2.0,
+    "frame_cache_ttl": 0.012
   },
   "steering": {
-    "min_hold": 0.13,
-    "engage_frac": 0.18,
+    "min_hold": 0.075,
+    "max_hold": 0.26,
+    "engage_frac": 0.15,
     "release_frac": 0.08,
-    "engage_min_px": 10,
-    "release_min_px": 5,
-    "green_lookahead": 0.10,
-    "marker_brake": 0.12,
-    "vel_smooth": 0.7
+    "engage_min_px": 7,
+    "release_min_px": 3,
+    "safe_margin_frac": 0.20,
+    "hold_until_inside_frac": 0.18,
+    "predict_secs": 0.16,
+    "green_lookahead": 0.08,
+    "marker_brake": 0.18,
+    "marker_vel_brake": 0.10,
+    "reversal_cooldown": 0.07,
+    "vel_smooth": 0.76,
+    "fast_green_px_per_sec": 120,
+    "fast_follow_bias_frac": 0.18
+  },
+  "humanize": {
+    "enabled": true,
+    "reaction_min": 0.10,
+    "reaction_max": 0.20,
+    "reaction_tail_chance": 0.0,
+    "reaction_tail_max": 0.0,
+    "hold_jitter": 0.25,
+    "gap_jitter": 0.15,
+    "settle_jitter": 0.20,
+    "microbreak_chance": 0.0,
+    "microbreak_min": 2.0,
+    "microbreak_max": 8.0,
+    "longbreak_chance": 0.0,
+    "longbreak_min": 15.0,
+    "longbreak_max": 45.0,
+    "fatigue_per_hour": 0.0,
+    "fatigue_max": 0.0,
+    "mouse_steps_min": 8,
+    "mouse_steps_max": 22,
+    "mouse_curve": 0.18,
+    "mouse_overshoot_chance": 0.25,
+    "click_jitter_px": 7,
+    "click_hold_min": 0.05,
+    "click_hold_max": 0.13,
+    "fight_start_delay_min": 0.12,
+    "fight_start_delay_max": 0.3,
+    "fight_hold_jitter": 0.25
   },
   "rois": {
-    "bite_f_ring": [0.9036, 0.8454, 0.0573, 0.1019],
-    "idle_e_icon": [0.8365, 0.8611, 0.0375, 0.0667],
-    "fight_left_icon": [0.2563, 0.0333, 0.0438, 0.0778],
-    "fight_right_icon": [0.7198, 0.0333, 0.0438, 0.0778],
-    "fight_bar": [0.3010, 0.0556, 0.4135, 0.0315],
-    "result_circle": [0.3854, 0.2519, 0.2271, 0.4037],
-    "result_capsule": [0.35, 0.0889, 0.30, 0.0611]
+    "bite_f_ring": [
+      0.9036,
+      0.8454,
+      0.0573,
+      0.1019
+    ],
+    "idle_e_icon": [
+      0.8365,
+      0.8611,
+      0.0375,
+      0.0667
+    ],
+    "fight_left_icon": [
+      0.2563,
+      0.0333,
+      0.0438,
+      0.0778
+    ],
+    "fight_right_icon": [
+      0.7198,
+      0.0333,
+      0.0438,
+      0.0778
+    ],
+    "fight_bar": [
+      0.3010,
+      0.0556,
+      0.4135,
+      0.0315
+    ],
+    "result_circle": [
+      0.3854,
+      0.2519,
+      0.2271,
+      0.4037
+    ],
+    "result_capsule": [
+      0.35,
+      0.0889,
+      0.30,
+      0.0611
+    ],
+    "world_fkey": [
+      0.5729,
+      0.5278,
+      0.0219,
+      0.0389
+    ],
+    "world_prompt": [
+      0.585,
+      0.52,
+      0.13,
+      0.06
+    ],
+    "prepare_button": [
+      0.7240,
+      0.8519,
+      0.2292,
+      0.0389
+    ],
+    "prepare_top": [
+      0.6771,
+      0.0648,
+      0.2604,
+      0.0556
+    ],
+    "master_header": [
+      0.1563,
+      0.2389,
+      0.4167,
+      0.0352
+    ],
+    "storage_sell_btn": [
+      0.5000,
+      0.8720,
+      0.1150,
+      0.0520
+    ],
+    "dialog_btn_left": [
+      0.3125,
+      0.6333,
+      0.1563,
+      0.0426
+    ],
+    "dialog_btn_right": [
+      0.5313,
+      0.6333,
+      0.1563,
+      0.0426
+    ],
+    "dialog_title": [
+      0.3229,
+      0.3259,
+      0.3542,
+      0.0519
+    ],
+    "shop_buy_btn": [
+      0.7240,
+      0.9352,
+      0.2292,
+      0.0370
+    ],
+    "shop_panel_top": [
+      0.7057,
+      0.1204,
+      0.2708,
+      0.0389
+    ],
+    "shop_cost": [
+      0.8828,
+      0.8056,
+      0.0833,
+      0.0333
+    ],
+    "reward_popup": [
+      0.18,
+      0.34,
+      0.65,
+      0.25
+    ],
+    "sell_success_popup": [
+      0.2800,
+      0.1900,
+      0.4400,
+      0.4800
+    ]
   },
   "hsv": {
-    "bite_blue": [[100, 120, 150], [130, 255, 255]],
-    "gold_ring": [[15, 110, 140], [40, 255, 255]],
-    "cyan_ring": [[82, 110, 150], [102, 255, 255]],
-    "green_zone": [[65, 120, 150], [95, 255, 255]],
-    "yellow_marker": [[18, 70, 200], [45, 255, 255]],
-    "white": [[0, 0, 215], [179, 45, 255]],
-    "dark": [[0, 0, 0], [179, 255, 90]]
+    "bite_blue": [
+      [
+        100,
+        120,
+        150
+      ],
+      [
+        130,
+        255,
+        255
+      ]
+    ],
+    "gold_ring": [
+      [
+        15,
+        110,
+        140
+      ],
+      [
+        40,
+        255,
+        255
+      ]
+    ],
+    "cyan_ring": [
+      [
+        82,
+        110,
+        150
+      ],
+      [
+        102,
+        255,
+        255
+      ]
+    ],
+    "green_zone": [
+      [
+        65,
+        120,
+        150
+      ],
+      [
+        95,
+        255,
+        255
+      ]
+    ],
+    "yellow_marker": [
+      [
+        18,
+        70,
+        200
+      ],
+      [
+        45,
+        255,
+        255
+      ]
+    ],
+    "white": [
+      [
+        0,
+        0,
+        215
+      ],
+      [
+        179,
+        45,
+        255
+      ]
+    ],
+    "dark": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        179,
+        255,
+        90
+      ]
+    ],
+    "pink_ui": [
+      [
+        145,
+        90,
+        130
+      ],
+      [
+        178,
+        255,
+        255
+      ]
+    ],
+    "orange_ui": [
+      [
+        8,
+        150,
+        170
+      ],
+      [
+        22,
+        255,
+        255
+      ]
+    ],
+    "red_text": [
+      [
+        0,
+        120,
+        120
+      ],
+      [
+        10,
+        255,
+        255
+      ]
+    ]
   },
   "thresholds": {
     "bite_blue_px": 450,
@@ -56,6 +440,24 @@
     "green_col_frac": 0.30,
     "marker_min_px": 6,
     "result_white_px": 12000,
-    "capsule_dark_frac": 0.5
+    "capsule_dark_frac": 0.5,
+    "world_pink_px": 1200,
+    "world_fkey_white_px": 100,
+    "prepare_white_px": 8000,
+    "prepare_dark_frac": 0.5,
+    "master_orange_px": 6000,
+    "sell_btn_white_px": 700,
+    "sell_btn_dark_frac": 0.45,
+    "sell_btn_pink_px": 120,
+    "dialog_btn_white_px": 4500,
+    "dialog_dark_frac": 0.5,
+    "badge_white_px": 25,
+    "slot_pink_px": 200,
+    "digit_min_px": 12,
+    "shop_buy_white_px": 5000,
+    "shop_panel_dark_frac": 0.5,
+    "shop_cost_red_px": 60,
+    "reward_popup_white_px": 30000,
+    "sell_success_white_px": 45000
   }
 }

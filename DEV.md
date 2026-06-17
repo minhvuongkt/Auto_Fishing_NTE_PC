@@ -14,7 +14,9 @@ không inject DLL.
   kernel **ACE** (driver `HtAntiCheatDriver`). ACE không chặn SendInput về mặt
   kỹ thuật, nhưng **rủi ro khóa tài khoản luôn tồn tại** — dùng phiên ngắn,
   đừng treo máy 24/7. Bạn tự chịu trách nhiệm khi sử dụng.
-- Mồi câu bị trừ mỗi lần thả cần; bot sẽ tự tạm dừng và kêu *beep* khi nghi hết mồi.
+- Mồi câu bị trừ mỗi lần thả cần; bot theo dõi "sổ mồi" nội bộ (`assume_stock`
+  trừ dần theo lần thả, cộng khi mua) và tự mua thêm ở shop (R) khi ước tính
+  không đủ cho chu kỳ câu-bán. Chỉ khi mua thất bại (hết sò...) mới dừng + *beep*.
 
 ## Yêu cầu
 
@@ -130,9 +132,66 @@ Mở từng màn hình trong game (đứng chờ / cá cắn / đang kéo / kế
 ```
 main.py        # vòng lặp chính + máy trạng thái + hotkey
 vision.py      # chụp ROI qua mss, nhận diện trạng thái bằng HSV
+ocr.py         # đọc số lượng mồi bằng RapidOCR (recognition-only, nạp lười)
 fight.py       # điều khiển A/D bám vùng xanh (bù quán tính, hysteresis)
 controller.py  # gửi phím/chuột qua PyDirectInput, kiểm tra focus
+flows.py       # chuỗi thao tác UI: bấm "Bắt Đầu Câu Cá", bán cá (Q), đổi mồi (E), mua mồi (R)
+humanizer.py   # nhân-hóa: trễ phản ứng, jitter, Bezier chuột, nghỉ, giới hạn phiên
 calibrate.py   # công cụ căn chỉnh ROI/màu
-smoke_test.py  # kiểm tra nhanh stack chụp màn hình + nhận diện (không gửi phím)
+smoke_test.py  # kiểm thử khô: khởi tạo mọi module, không gửi input
 config.json    # toàn bộ tham số
 ```
+
+Các luồng UI mới (flows.py) nhận diện bằng: nhãn hồng "Câu cá" + phím F (world —
+chỉ để nhắc người dùng tự bấm F, bot không tự bấm), nút trắng "Bắt Đầu Câu Cá"
+(prepare — nền tối phía trên chỉ là tín hiệu phụ), dải tiêu đề cam (Chợ Cá/FISHING
+MASTER), viền hồng nút BÁN NHANH (trang khoang cá), cặp nút trắng trên nền tối
+(hộp thoại 2 nút). Ô mồi: đếm màu chữ số lượng (trắng = còn, đỏ = 0), ô đang chọn
+nhận bằng viền hồng hiện ở cả 4 cạnh. Mọi tọa độ là tỉ lệ của 1920×1080.
+
+Shop mồi (R, `flows.buy_bait`): nhận diện bằng nút "Mua" trắng lớn dưới phải +
+dải tiêu đề panel tối (`shop_buy_btn`/`shop_panel_top`); lưới item 3 ô/hàng theo
+`bait_shop.grid_*` (gốc = tâm ô 1, đếm trái→phải rồi xuống hàng); số lượng chỉnh
+bằng cách bấm `plus_btn` lặp (mặc định shop là 1, mỗi cú +1); thiếu sò nhận biết
+qua số "Tiêu hao" chuyển đỏ (`shop_cost` + `red_text`) → bấm `minus_btn` giảm
+dần, không mua nổi 1 thì bỏ. Vì bot không OCR được con số nên main.py giữ "sổ
+mồi" ước tính: `assume_stock` khởi điểm, −1 mỗi lần thả cần, +N khi mua, =0 khi
+hộp thoại đổi mồi báo hết sạch; trước khi thả cần so sổ với số cá còn phải câu
+tới mốc bán (`_bait_needed`) để quyết định mua trước.
+
+**Flow check mồi:** ngay sau khi `flows.start_from_prepare()` đưa vào chế độ câu
+(và mỗi lần f10 chạy tiếp), main.py bật cờ `_need_bait_check` để mở hộp thoại E
+đọc số mồi **TRƯỚC lần thả cần đầu tiên** — vì menu R/Q/E chỉ hoạt động sau khi
+đã "Bắt Đầu Câu Cá". Thiếu mồi cho chu kỳ bán kế (`_bait_needed`) thì vào shop R
+mua trước rồi mới thả cần.
+
+**Đọc số mồi (OCR thật):** `vision._ocr_badge_count` crop badge số lượng của ô
+đang chọn, gộp mask trắng+đỏ thành chữ nét đậm rồi phóng to 6× đưa vào
+`ocr.read_int` (RapidOCR recognition-only, `use_det=False`). RapidOCR dùng model
+ONNX của PaddleOCR — offline, đa ngôn ngữ, đọc số ~20ms/crop. `ocr.read_int`
+chuẩn hóa nhầm lẫn chữ↔số (〇→0, l→1...) rồi lấy cụm chữ số đầu tiên. `bait_slots`
+trả `count` (int hoặc None); `has_stock` suy từ `count>0` khi đọc được, lùi về
+heuristic trắng/đỏ khi OCR trượt. main.py `_refresh_bait_count` ghi thẳng
+`bait_left=count` (`_bait_exact=True`). Mở được hộp thoại nhưng OCR trượt số thì
+dùng has_stock thô; chỉ tắt theo dõi (`_bait_watch=False`) sau **3 lần liên tiếp
+KHÔNG mở được** hộp thoại E (`_bait_read_fails`), không tắt vĩnh viễn vì 1 lần lỗi.
+
+Nếu chưa cài `rapidocr-onnxruntime` thì `ocr.available()` trả False, `count=None`,
+bot lùi về cơ chế cũ (phản ứng khi `switch_bait` báo hết sạch). Đóng gói exe phải
+gom model qua `collect_all` trong `AutoFishingNTE.spec` (build.bat dùng file spec).
+
+**Đổi mồi quét hết ô (vuốt ngang):** hộp thoại E chỉ hiện ~5 ô; `flows.switch_bait`
+đọc trang hiện tại, nếu mồi đang dùng còn hàng thì thôi (`bait_ok`), chưa thấy ô
+nào còn hàng thì `_scroll_bait_strip` kéo-thả chuột ngang (`controller.drag`, từ
+`bait_dialog.scroll.from_x`→`to_x` tại `scroll.y`) để lộ ô bên phải, lặp tới khi
+gặp ô còn hàng / `bait_strip_sig` không đổi (chạm cuối) / hết `scroll.max_pages`.
+Đổi sang **ô đầu tiên còn hàng từ trái** rồi bấm "Thay đổi". `vision.bait_strip_sig`
+chụp ảnh xám 80×20 của cả dải ô, `strip_changed` so trung bình sai khác để biết
+đã cuộn được hay chưa. Tham số kéo (steps, max_pages, tọa độ) ở `bait_dialog.scroll`
+— chỉnh nếu game cuộn quá nhiều/ít. `shop_item_index` vẫn quyết định loại mồi mua
+ở shop R (không liên quan tới việc quét ô khi đổi).
+
+Humanizer (humanizer.py) tập trung mọi tính ngẫu nhiên: reaction lệch phải có
+đuôi chậm, jitter hold/gap/settle, fatigue tăng theo giờ, micro/long break,
+đường chuột Bezier bậc 2 + overshoot, click offset Gauss, session limit ngẫu
+nhiên. Các module nhận instance qua tham số `human` (None = tắt, dùng cho test).
