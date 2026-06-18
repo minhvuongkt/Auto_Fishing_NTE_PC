@@ -1,12 +1,11 @@
-# NTE Auto Fishing — Hướng dẫn sử dụng
+# NTE Auto Fishing
 
-Tool tự động câu cá cho game **NTE (Neverness to Everness)**. Bạn chỉ cần đứng
-tại điểm câu và bật tool — mọi thứ còn lại tool tự làm: thả cần, phát hiện cá
-cắn, giật cần, chơi minigame kéo cá, nhận cá và lặp lại liên tục.
-Bot đọc màn hình (OpenCV + mss) và giả lập phím (SendInput scancode qua)
+Tool tự động câu cá game **NTE**. 
+Bạn chỉ cần đứng tại điểm câu và bật tool — mọi thứ còn lại tool tự làm: thả cần, phát hiện cá cắn, giật cần, kéo cá, nhận cá và lặp lại.
+Bot đọc màn hình và giả lập phím
 ---
 
-## 1. Tool làm được gì?
+## 1. Chức năng tool
 
 | Chức năng | Mô tả |
 |---|---|
@@ -52,21 +51,18 @@ Ngoài game:
 
 ## 3. Cách chạy
 
-### Cách 1 — File exe (dễ nhất)
-
 1. Mở thư mục đã tải tool về, double-click **`NTE-AutoFishing.exe`**
 2. Windows hỏi quyền Administrator → bấm **Yes** (bắt buộc, không có quyền này tool không bấm phím vào game được)
 
 > File `config.json` phải luôn nằm **cùng thư mục** với file exe.
-> Nếu antivirus báo nhầm/xóa file exe: thêm thư mục tool vào danh sách ngoại lệ
-> (exclusion), hoặc dùng Cách 2 — kết quả giống hệt nhau.
+> Nếu antivirus báo nhầm/xóa file exe: thêm thư mục tool vào danh sách ngoại lệ (exclusion).
 
 ### Phím điều khiển
 
 | Phím | Tác dụng |
 |---|---|
-| **F8** | Bắt đầu / Tạm dừng (có tiếng beep xác nhận) |
-| **F12** | Thoát tool, in thống kê phiên câu |
+| **F10** | Bắt đầu / Tạm dừng (có tiếng beep xác nhận) |
+| **F12** | Thoát tool, thống kê phiên câu |
 
 ---
 
@@ -74,36 +70,9 @@ Ngoài game:
 
 1. Vào game, đi đến điểm câu cá, vào chế độ câu (thấy nút **F** hình móc câu ở góc phải dưới như khi câu tay).
 2. Chạy tool. Tool khởi động ở trạng thái **tạm dừng** — chưa làm gì cả.
-3. Click chuột vào cửa sổ game cho game nổi lên trước, rồi bấm **F8**. Nghe tiếng beep cao = tool bắt đầu chạy.
+3. Click chuột vào cửa sổ game cho game nổi lên trước, rồi bấm **F10**. Nghe tiếng beep cao = tool bắt đầu chạy.
 4. Ngồi xem hoặc đi làm việc khác... (không alt-tab — tool cần cửa sổ game mở phía trước).
-5. Muốn nghỉ: bấm **F8** (beep trầm = đã dừng, tool nhả hết phím). Muốn tắt hẳn: **F12**.
-
-### Đọc cửa sổ log
-
-```
-[19:02:11] Thả cần (F)...
-[19:02:25] (!) Cá cắn câu → F
-[19:02:27] (>) Bắt đầu kéo cá (lần 3)...
-[19:02:41] Kéo cá kết thúc — chờ màn kết quả...
-[19:02:43] <>< Bắt được cá! (tổng: 3)
-```
-
-| Thông báo | Ý nghĩa |
-|---|---|
-| `Cá thoát / đứt dây — thả lại` | Sẩy con đó, tool tự câu tiếp — bình thường |
-| `Chờ lâu không có cá cắn — thu cần, thả lại` | Quá 90 giây không cá cắn, tool tự làm mới |
-| `? Nghi hết mồi — mở hộp thoại đổi mồi (E)...` | Tool đang tự kiểm tra và đổi loại mồi còn hàng |
-| `Số mồi hiện tại: N (cần M cho chu kỳ bán).` | Tool vừa đọc số mồi còn lại bằng OCR ở hộp thoại E |
-| `Mồi còn N, cần M cho chu kỳ bán — đi mua mồi.` | Số mồi sắp thiếu, tool tự vào shop R mua trước |
-| `$ Đã mua N mồi.` | Mua mồi xong, quay lại câu |
-| `$ Đã bán nhanh toàn bộ khoang cá.` | Bán cá định kỳ xong, câu tiếp |
-| `(~) Nghỉ ngẫu nhiên Ns cho giống người...` | Nghỉ giả lập người chơi, tự chạy lại sau N giây |
-| `[!] Tạm dừng: đã HẾT SẠCH mọi loại mồi...` | Chỉ xảy ra khi tắt tự mua mồi — mua ở shop (phím R) rồi bấm F8 |
-| `[!] Tạm dừng: không mua được mồi...` | Hết sò hoặc tọa độ shop lệch (chạy `calibrate.py shot` để kiểm tra) — xử lý rồi bấm F8 |
-| `[!] Tạm dừng: 3 lần liên tiếp không có cá cắn` | Điểm câu có vấn đề (sai mồi/sai chỗ) — kiểm tra rồi F8 |
-| `[!] Tạm dừng: hết thời lượng phiên...` | Hết "ca câu" ngẫu nhiên (40–75 phút) — nghỉ chút rồi F8 chạy tiếp |
-
----
+5. Muốn nghỉ: bấm **F10** (beep trầm = đã dừng, tool nhả hết phím). Muốn tắt hẳn: **F12**.
 
 ## 5. Tinh chỉnh nhanh (file `config.json`)
 
@@ -144,7 +113,7 @@ Sửa xong lưu file rồi khởi động lại tool.
 
 ---
 
-## 7. Câu hỏi thường gặp
+## 7. Q&A
 
 **Treo tool qua đêm được không?**
 Không khuyến khích. Game cấm macro trong điều khoản và có anti-cheat ACE; tool
