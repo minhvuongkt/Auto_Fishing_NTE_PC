@@ -1,8 +1,8 @@
 # NTE Auto Fishing
 
-Tool tự động câu cá game **NTE**. 
-Bạn chỉ cần đứng tại điểm câu và bật tool — mọi thứ còn lại tool tự làm: thả cần, phát hiện cá cắn, giật cần, kéo cá, nhận cá và lặp lại.
-Bot đọc màn hình và giả lập phím
+- Tool tự động câu cá game **NTE**. 
+- Bạn chỉ cần đứng tại điểm câu và bật tool — mọi thứ còn lại tool tự làm: thả cần, phát hiện cá cắn, giật cần, kéo cá, nhận cá và lặp lại.
+- Bot đọc màn hình và giả lập phím
 ---
 
 ## 1. Chức năng tool
