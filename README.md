@@ -105,7 +105,7 @@ Sửa xong lưu file rồi khởi động lại tool.
 | Hiện tượng | Cách xử lý |
 |---|---|
 | Tool chạy nhưng game không nhận phím | Chưa có quyền Administrator — chạy lại exe và bấm Yes |
-| Bấm F8 không có phản ứng | Cũng do thiếu quyền admin (Windows chặn phím tắt khi game elevated) |
+| Bấm F10 không có phản ứng | Cũng do thiếu quyền admin (Windows chặn phím tắt khi game elevated) |
 | Tool không bấm gì, log im lặng | Cửa sổ game không phải cửa sổ đang mở phía trước, hoặc `window_titles` không khớp (mục 6) |
 | Tool kéo cá ngược chiều | `invert_pull: true` (mục 5) |
 | Không nhận diện được gì ở mọi màn hình | Kiểm tra lại mục 2: borderless? DLSS/FSR/HDR đã tắt? |
@@ -135,7 +135,7 @@ Có — mọi vùng nhận diện tự co giãn theo tỉ lệ. Nhưng 1920×108
 kiểm tra một lượt trước khi treo.
 
 **Hết mồi thì sao? Tool kiểm tra mồi trước khi câu thế nào?**
-Ngay sau khi bấm "Bắt Đầu Câu Cá" để vào chế độ câu (và mỗi lần bấm F8 chạy
+Ngay sau khi bấm "Bắt Đầu Câu Cá" để vào chế độ câu (và mỗi lần bấm F10 chạy
 tiếp), **trước lần thả cần đầu tiên** tool mở nhanh hộp thoại đổi mồi (E) và
 **đọc đúng con số mồi còn lại bằng OCR** (ví dụ thấy "43" là biết còn 43 cái).
 Số này trừ dần mỗi lần thả cần và so với số cá còn phải câu tới lần bán kế:
