@@ -11,17 +11,19 @@
 |---|---|
 | Tự thả cần | Tự bấm F khi đang ở trạng thái sẵn sàng câu |
 | Tự phát hiện cá cắn | Nhận diện vòng sáng xanh quanh nút F và giật cần ngay lập tức (nhanh hơn người) |
-| Tự chơi minigame kéo cá | Điều khiển A/D đưa vạch vàng bám theo vùng xanh, có tính trước quán tính của vạch nên không bị vọt lố |
+| Tự kéo cá | Điều khiển A/D đưa vạch vàng bám theo vùng xanh, có tính trước quán tính của vạch nên không bị vọt lố |
 | Tự nhận cá | Tự bấm đóng màn kết quả rồi thả cần tiếp |
 | Lặp vô hạn | Chu trình chạy liên tục cho đến khi bạn dừng |
 | Thống kê | Đếm số cá bắt được, số lần kéo, thời gian chạy — hiện khi tạm dừng/thoát |
-| Tự bảo vệ | Tự tạm dừng + kêu **beep** khi nghi hết mồi hoặc chờ lâu không có cá; tự nhả hết phím khi tạm dừng |
+| [X] Tự bảo vệ | Tự tạm dừng + kêu **beep** khi nghi hết mồi hoặc chờ lâu không có cá; tự nhả hết phím khi tạm dừng |
 | An toàn cửa sổ | Chỉ bấm phím khi cửa sổ game đang mở phía trước — alt-tab ra ngoài là tool tự ngưng bấm |
 | Tự bắt đầu câu | Bạn tự bấm F vào điểm câu; thấy bảng chuẩn bị là tool tự bấm "Bắt Đầu Câu Cá" (tool không tự bấm F vào điểm câu) |
-| Tự bán cá | Cứ đủ N con (mặc định 20) tự mở Chợ Cá (Q) → khoang cá → BÁN NHANH → Xác nhận → câu tiếp |
-| 🪱 Tự đổi mồi | Hết mồi đang dùng thì tự mở hộp thoại đổi mồi (E), **vuốt ngang xem hết các ô**, đọc số lượng từng ô và đổi sang loại đầu tiên còn hàng |
+| [X] Tự bán cá | Cứ đủ N con (mặc định 20) tự mở Chợ Cá (Q) → khoang cá → BÁN NHANH → Xác nhận → câu tiếp |
+| [X] Tự đổi mồi | Hết mồi đang dùng thì tự mở hộp thoại đổi mồi (E), **vuốt ngang xem hết các ô**, đọc số lượng từng ô và đổi sang loại đầu tiên còn hàng |
 | Tự mua mồi | Theo dõi số mồi còn lại, trước khi thả cần so với số cá cần câu tới lần bán kế — thiếu thì tự mở shop (R), chọn loại mồi đã cấu hình, chỉnh số lượng và Mua (tự giảm nếu không đủ sò) |
 | Thao tác giống người | Phản ứng nhanh chậm ngẫu nhiên, di chuột theo đường cong, thi thoảng "ngó lơ" vài giây, tự nghỉ khi hết phiên |
+
+**Lưu ý: [X] là đang trong giai đoạn thử nghiệm, sẽ có lỗi xảy ra, ae nhớ chú ý tránh mất công nhé!
 
 **Tool KHÔNG có các chức năng:** tự di chuyển đến điểm câu, tự bấm F vào điểm
 câu (bạn tự vào, tool nhắc trong log), chạy ngầm khi game thu nhỏ.
